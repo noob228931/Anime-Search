@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Відгуки про фільми, аніме та книги</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+        }
+        header {
+            background-color: #343a40;
+            color: white;
+            padding: 15px 0;
+            text-align: center;
+        }
+        main {
+            padding: 20px;
+            max-width: 800px;
+            margin: auto;
+        }
+        form {
+            background: #ffffff;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        form div {
+            margin-bottom: 10px;
+        }
+        form label {
+            font-weight: bold;
+        }
+        form input, form textarea, form select, form button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ced4da;
+            border-radius: 5px;
+        }
+        form button {
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+            border: none;
+        }
+        form button:hover {
+            background-color: #0056b3;
+        }
+        .list-container {
+            background: #ffffff;
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .list-container h3 {
+            margin-bottom: 10px;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        ul li {
+            padding: 10px;
+            background-color: #e9ecef;
+            margin-bottom: 5px;
+            border-radius: 5px;
+            display: flex;
+            justify-content: space-between;
+        }
+        ul li button {
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        ul li button:hover {
+            background-color: #bd2130;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Відгуки про фільми, аніме та книги</h1>
+    </header>
+    <main>
+        <section>
+            <h2>Залиште свій відгук</h2>
+            <form id="reviewForm">
+                <div>
+                    <label for="category">Категорія:</label>
+                    <select id="category" required>
+                        <option value="">Виберіть категорію</option>
+                        <option value="movie">Фільм</option>
+                        <option value="anime">Аніме</option>
+                        <option value="book">Книга</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="title">Назва:</label>
+                    <input type="text" id="title" placeholder="Введіть назву" required>
+                </div>
+                <div>
+                    <label for="review">Ваш відгук:</label>
+                    <textarea id="review" rows="4" placeholder="Напишіть ваш відгук..." required></textarea>
+                </div>
+                <button type="submit">Надіслати</button>
+            </form>
+        </section>
+
+        <section class="list-container">
+            <h3>Планую подивитися/прочитати</h3>
+            <form id="planForm">
+                <input type="text" id="planInput" placeholder="Додайте до списку" required>
+                <button type="submit">Додати</button>
+            </form>
+            <ul id="planList"></ul>
+        </section>
+    </main>
+    <script>
+        // Обробка форми відгуків
+        const reviewForm = document.getElementById('reviewForm');
+        reviewForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const category = document.getElementById('category').value;
+            const title = document.getElementById('title').value;
+            const review = document.getElementById('review').value;
+            alert(`Ваш відгук успішно надіслано!\nКатегорія: ${category}\nНазва: ${title}\nВідгук: ${review}`);
+            reviewForm.reset();
+        });
+
+        // Обробка списку "Планую подивитися/прочитати"
+        const planForm = document.getElementById('planForm');
+        const planList = document.getElementById('planList');
+        planForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const planInput = document.getElementById('planInput');
+            const newItem = document.createElement('li');
+            newItem.innerHTML = `${planInput.value} <button>Видалити</button>`;
+            newItem.querySelector('button').addEventListener('click', () => {
+                newItem.remove();
+            });
+            planList.appendChild(newItem);
+            planInput.value = '';
+        });
+    </script>
+</body>
+</html>
