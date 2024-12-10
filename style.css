@@ -1,0 +1,395 @@
+:root {
+    --bg-color: #1a1a1a;
+    --card-bg: #2d2d2d;
+    --text-color: #ffffff;
+    --text-secondary: #b3b3b3;
+    --accent-color: #8B0000;  /* темно-червоний */
+    --accent-hover: #660000;  /* темніший червоний */
+    --tag-bg: #404040;
+    --card-shadow: rgba(0,0,0,0.3);
+    --input-border: #404040;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    transition: all 0.3s ease;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+}
+
+.site-header {
+    background-color: var(--card-bg);
+    box-shadow: 0 2px 10px var(--card-shadow);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    padding: 10px 0;
+}
+
+.header-content {
+    max-width: 1200px;
+    margin: 0;
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.header-left {
+    padding-top: 0;
+}
+
+.header-left h1 {
+    margin: 0;
+    font-size: 24px;
+    white-space: nowrap;
+    color: var(--accent-color);
+}
+
+.header-center {
+    flex-grow: 1;
+    max-width: none;
+}
+
+.search-container {
+    width: 100%;
+    max-width: calc(100vw * 0.75);
+    margin-left: 20px;
+}
+
+.search-input-wrapper {
+    position: relative;
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+#searchInput {
+    width: 100%;
+    padding: 10px 45px 10px 20px;
+    border: 2px solid var(--input-border);
+    border-radius: 25px;
+    font-size: 16px;
+    background: var(--card-bg);
+    color: var(--text-color);
+    transition: all 0.3s ease;
+    outline: none;
+    height: 45px;
+}
+
+#searchInput:focus {
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 3px rgba(139, 0, 0, 0.1);
+}
+
+#searchInput::placeholder {
+    color: var(--text-secondary);
+}
+
+#searchButton {
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    padding: 8px;
+    background-color: transparent;
+    color: var(--accent-color);
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    height: 35px;
+    width: 35px;
+    z-index: 2;
+}
+
+#searchButton svg {
+    width: 18px;
+    height: 18px;
+    transition: transform 0.3s ease;
+    transform-origin: center;
+}
+
+#searchButton:hover {
+    background-color: var(--accent-color);
+    color: var(--bg-color);
+}
+
+#searchButton:hover svg {
+    transform: rotate(90deg);
+}
+
+#searchButton:active svg {
+    transform: rotate(90deg) scale(0.9);
+}
+
+main.container {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 0 20px;
+    min-height: calc(100vh - 100px);
+}
+
+.results-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+    padding-right: 5px;
+}
+
+.anime-card {
+    position: relative;
+    background-color: var(--card-bg);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 15px var(--card-shadow);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    animation: fadeIn 0.5s ease-out;
+    opacity: 0;
+    animation-fill-mode: forwards;
+}
+
+.anime-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 20px rgba(139, 0, 0, 0.2);
+    border: 1px solid var(--accent-color);
+}
+
+.anime-card img {
+    width: 100%;
+    height: 280px;
+    object-fit: cover;
+    display: block;
+}
+
+.anime-info {
+    position: relative;
+    background: var(--card-bg);
+    color: var(--text-color);
+    padding: 15px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.anime-info h3 {
+    font-size: 16px;
+    margin-bottom: 8px;
+    color: #ffffff;
+    line-height: 1.3;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    height: 42px;
+}
+
+.anime-info p {
+    font-size: 14px;
+    margin-bottom: 5px;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.anime-stats {
+    display: flex;
+    gap: 15px;
+    margin-top: 5px;
+}
+
+.anime-stats span {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    color: #ffffff;
+    font-size: 13px;
+}
+
+.tag {
+    display: inline-block;
+    padding: 3px 8px;
+    background: var(--tag-bg);
+    border-radius: 12px;
+    font-size: 12px;
+    color: #ffffff;
+    margin: 2px;
+}
+
+.tags-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin-top: 5px;
+}
+
+.anime-synopsis {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .site-header {
+        padding: 15px 0;
+    }
+
+    .header-content {
+        flex-direction: row;
+        padding: 0 15px;
+        gap: 15px;
+    }
+
+    .header-left {
+        justify-self: start;
+    }
+
+    .header-center {
+        width: auto;
+        max-width: none;
+    }
+
+    .logo {
+        font-size: 22px;
+    }
+
+    .logo-search {
+        font-size: 18px;
+    }
+
+    ::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    .search-container {
+        max-width: calc(100vw * 0.65);
+        margin-left: 10px;
+    }
+
+    .logo-image {
+        height: 45px;
+    }
+
+    #searchInput {
+        height: 40px;
+    }
+}
+
+/* Оновлюємо стилі для логотипу */
+.logo {
+    margin: 0;
+    display: flex;
+    align-items: center;
+}
+
+.logo-image {
+    height: 50px;
+    width: auto;
+    object-fit: contain;
+    transition: transform 0.3s ease;
+}
+
+.logo:hover .logo-image {
+    transform: scale(1.08);
+}
+
+/* Адаптивність для мобільних */
+@media (max-width: 768px) {
+    .logo-image {
+        height: 40px;
+    }
+
+    .search-container {
+        width: 200px;
+        margin-left: 10px;
+    }
+}
+
+/* Додаємо плавне прокручування для всього сайту */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Стилізація скроллбару для всього сайту */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg-color);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--accent-color);
+    border-radius: 5px;
+    border: 2px solid var(--bg-color);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--accent-hover);
+}
+
+/* Стилізація скроллбару для результатів пошуку */
+.results-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+    padding-right: 5px; /* Додаємо відступ для скроллбару */
+}
+
+/* Анімація появи карток */
+.anime-card {
+    animation: fadeIn 0.5s ease-out;
+    opacity: 0;
+    animation-fill-mode: forwards;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Додаємо затримку для кожної наступної картки */
+.anime-card:nth-child(1) { animation-delay: 0.1s; }
+.anime-card:nth-child(2) { animation-delay: 0.2s; }
+.anime-card:nth-child(3) { animation-delay: 0.3s; }
+.anime-card:nth-child(4) { animation-delay: 0.4s; }
+/* і так далі... */
+
+/* Оновлюємо стилі контейнера */
+main.container {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 0 20px;
+    min-height: calc(100vh - 100px); /* Мінімальна висота для довгих сторінок */
+}
+
+/* Додаємо плавний перехід для всіх анімацій */
+* {
+    transition: all 0.9s ease;
+}
+
+/* Оптимізація для мобільних пристроїв */
+@media (max-width: 768px) {
+    ::-webkit-scrollbar {
+        width: 6px;
+    }
+}
