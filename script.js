@@ -80,7 +80,7 @@ document.addEventListener('DOMContentLoaded', () => {
             'Magic': 'Магія',
             'Military': 'Військове',
             'Historical': 'Історичне',
-            'Super Power': 'Супер��или',
+            'Super Power': 'Суперсили',
             'Vampire': 'Вампіри',
             'Martial Arts': 'Бойові мистецтва',
             'Samurai': 'Самураї',
@@ -109,11 +109,38 @@ document.addEventListener('DOMContentLoaded', () => {
         return seasonMap[season] || '';
     }
 
-    // Додаємо обробники подій
+    async function getTrendingAnime() {
+        try {
+            const response = await fetch('https://api.jikan.moe/v4/top/anime?filter=airing');
+            const data = await response.json();
+            return data.data;
+        } catch (error) {
+            console.error('Помилка при отриманні трендових аніме:', error);
+            return [];
+        }
+    }
+
+    function displaySectionTitle(title) {
+        const titleElement = document.createElement('h2');
+        titleElement.className = 'section-title';
+        titleElement.textContent = title;
+        resultsDiv.insertAdjacentElement('beforebegin', titleElement);
+    }
+
+    async function loadTrendingAnime() {
+        const trending = await getTrendingAnime();
+        displaySectionTitle('Популярні аніме');
+        displayResults(trending);
+    }
+
     searchButton.addEventListener('click', async () => {
         const query = searchInput.value.trim();
         if (query) {
             const results = await searchAnime(query);
+            const existingTitle = document.querySelector('.section-title');
+            if (existingTitle) {
+                existingTitle.remove();
+            }
             displayResults(results);
         }
     });
@@ -123,8 +150,18 @@ document.addEventListener('DOMContentLoaded', () => {
             const query = searchInput.value.trim();
             if (query) {
                 const results = await searchAnime(query);
+                const existingTitle = document.querySelector('.section-title');
+                if (existingTitle) {
+                    existingTitle.remove();
+                }
                 displayResults(results);
             }
         }
+    });
+
+    loadTrendingAnime();
+
+    document.getElementById('logo').addEventListener('click', function() {
+        location.reload();
     });
 }); 
