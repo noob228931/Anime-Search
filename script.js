@@ -129,7 +129,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     async function loadTrendingAnime() {
         const trending = await getTrendingAnime();
-        displaySectionTitle('Популярні аніме');
         displayResults(trending);
     }
 
